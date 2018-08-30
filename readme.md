@@ -26,7 +26,7 @@
 ### Installation
 
 - Create `mysql database` and login credentials.
-- Run `git clone git@github.com:vrimeikis/learn-product-catalog1.git`
+- Run `git clone git@github.com:vrimeikis/learn-product-catalog2.git`
 - Go to project directory.
 - Create `.env` file form `.env.example` file.
 - Add your `database credentials` to `.env` file.
