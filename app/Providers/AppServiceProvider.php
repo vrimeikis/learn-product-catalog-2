@@ -1,9 +1,16 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace App\Providers;
 
+use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class AppServiceProvider
+ * @package App\Providers
+ */
 class AppServiceProvider extends ServiceProvider
 {
     /**
@@ -11,9 +18,9 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function boot()
+    public function boot(): void
     {
-        //
+        Schema::defaultStringLength(191);
     }
 
     /**
@@ -21,8 +28,23 @@ class AppServiceProvider extends ServiceProvider
      *
      * @return void
      */
-    public function register()
+    public function register(): void
     {
-        //
+        $this->registerRepositories();
+        $this->registerServices();
+    }
+
+    /**
+     *
+     */
+    private function registerRepositories(): void
+    {
+    }
+
+    /**
+     *
+     */
+    private function registerServices(): void
+    {
     }
 }
