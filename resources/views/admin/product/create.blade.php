@@ -57,6 +57,14 @@
                             </div>
 
                             <div class="form-group">
+                                <label for="active">{{ __('Active') }}:</label>
+                                <input type="checkbox" name="active" value="active" ><br>
+                                @if($errors->has('active'))
+                                    <div class="alert-danger">{{ $errors->first('active') }}</div>
+                                @endif
+                            </div>
+
+                            <div class="form-group">
                                 <input class="btn btn-success" type="submit" value="{{ __('Save') }}">
                             </div>
 

@@ -17,9 +17,9 @@ class CreateProductsTable extends Migration
             $table->increments('id');
             $table->timestamps();
             $table->string('title', 191);
-            $table->integer('price');
-            $table->text('context');
-            $table->string('cover');
+            $table->integer('price')->nullable();
+            $table->text('context')->nullable();
+            $table->string('cover')->nullable();
             $table->string('slug', 191)->unique();
             $table->boolean('active')->default(false);
         });

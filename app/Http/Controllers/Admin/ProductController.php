@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\ProductStoreRequest;
 use App\Product;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
@@ -52,12 +53,47 @@ class ProductController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
+     * @param ProductStoreRequest $request
      * @return \Illuminate\Http\Response
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function store(Request $request)
+    public function store(ProductStoreRequest $request)
     {
-        //
+//        dd('inside');
+try{
+
+
+    dd('inside');
+
+    $data = [
+        'title' => $request->getTitle(),
+        'context' => $request->getContext(),
+        'cover' => $request->getCover(),
+        'price' => $request->getPrice(),
+        'slug' => $request->getSlug(),
+        'active'=> $request->getActive(),
+    ];
+
+        $product = $this->productRepository->create($data);
+
+//        dd($product);
+
+        return redirect()
+            ->route('admin.product.index')
+            ->with('status', 'Product successfully created!');
+
+    } catch (\Throwable $e)
+        {
+            dd($e->getMessage());
+        }
+
+
+
+//        dd($data);
+
+
+
+
     }
 
     /**
