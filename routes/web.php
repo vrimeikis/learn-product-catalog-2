@@ -19,5 +19,7 @@ Auth::routes();
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], function() {
     Route::get('/', 'Admin\\HomeController@index')->name('home');
+
+    Route::resource('product', 'Admin\\ProductController')->except(['show', 'destroy']);
 });
 
