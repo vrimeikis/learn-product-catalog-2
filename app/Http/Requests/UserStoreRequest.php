@@ -63,9 +63,9 @@ class UserStoreRequest extends FormRequest
     }
 
     /**
-     * @return string
+     * @return null|string
      */
-    public function getPassword(): string
+    public function getPassword(): ?string
     {
         return $this->input('password');
     }

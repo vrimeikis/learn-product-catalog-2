@@ -5,12 +5,11 @@ declare (strict_types=1);
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\UserStoreRequest;
+use App\Http\Requests\UserUpdateRequest;
 use App\Repositories\UserRepository;
-use App\User;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\View\View;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
 /**
@@ -78,10 +77,10 @@ class UserController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
+     * @param int $userId
+     * @return void
      */
-    public function show(User $user)
+    public function show(int $userId)
     {
         //
     }
@@ -89,23 +88,41 @@ class UserController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
+     * @param int $userId
+     * @return View
+     * @throws BindingResolutionException
      */
-    public function edit(User $user)
+    public function edit(int $userId): View
     {
-        //
+        $user = $this->userRepository->find($userId);
+
+        return view('admin.user.update', compact('user'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\User  $user
-     * @return \Illuminate\Http\Response
+     * @param UserUpdateRequest $request
+     * @param int $userId
+     * @return RedirectResponse
+     * @throws BindingResolutionException
      */
-    public function update(Request $request, User $user)
+    public function update(UserUpdateRequest $request, int $userId): RedirectResponse
     {
-        //
+        $data = [
+            'name' => $request->getName(),
+            'last_name' => $request->getLastName(),
+            'email' => $request->getEmail(),
+        ];
+
+        if (!empty($request->getPassword())) {
+            array_set($data, 'password', bcrypt($request->getPassword()));
+        }
+
+        $this->userRepository->update($data, $userId);
+
+        return redirect()
+            ->route('admin.users.index')
+            ->with('status', 'User updated successfully!');
     }
 }

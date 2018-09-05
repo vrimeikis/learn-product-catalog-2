@@ -29,7 +29,7 @@
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->last_name }}</td>
                                     <td>{{ $user->email }}</td>
-                                    <td></td>
+                                    <td><a class="btn btn-success" href="{{ route('admin.users.edit', [$user->id]) }}">{{ __('Edit') }}</a></td>
                                 </tr>
                             @endforeach
 
