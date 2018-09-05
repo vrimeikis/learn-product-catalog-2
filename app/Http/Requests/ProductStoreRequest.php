@@ -28,9 +28,8 @@ class ProductStoreRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'cover' => 'nullable|image|min:10|max:2048|dimensions:min_width:600,max_width:300',
+            'cover' => 'nullable|image',
             'price' => 'required',
-            'slug' => 'required',
             'active'=> 'required',
         ];
     }

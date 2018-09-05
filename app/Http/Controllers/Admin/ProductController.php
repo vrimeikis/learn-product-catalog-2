@@ -63,12 +63,12 @@ class ProductController extends Controller
 try{
 
 
-    dd('inside');
+//    dd('inside');
 
     $data = [
         'title' => $request->getTitle(),
         'context' => $request->getContext(),
-        'cover' => $request->getCover(),
+        'cover' => $request->getCover() ? $request->getCover()->store(self::COVER_DIRECTORY) : null,
         'price' => $request->getPrice(),
         'slug' => $request->getSlug(),
         'active'=> $request->getActive(),

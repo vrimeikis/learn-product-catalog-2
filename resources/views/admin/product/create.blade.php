@@ -34,6 +34,7 @@
                                 <label for="cover">{{ __('Cover') }}</label>
                                 <input type="file" id="cover" class="form-control" name="cover" accept=".jpg, .jpeg, .png">
                             </div>
+                            {{ print_r($errors) }}
                             @if($errors->has('cover'))
                                 <div class="alert-danger">{{ $errors->first('cover') }}</div>
                             @endif
