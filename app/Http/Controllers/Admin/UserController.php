@@ -4,6 +4,7 @@ declare (strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\AddressStoreRequest;
 use App\Http\Requests\UserStoreRequest;
 use App\Http\Requests\UserUpdateRequest;
 use App\Repositories\UserRepository;
@@ -78,11 +79,16 @@ class UserController extends Controller
      * Display the specified resource.
      *
      * @param int $userId
-     * @return void
+     * @return View
+     * @throws BindingResolutionException
      */
-    public function show(int $userId)
+    public function show(int $userId): View
     {
-        //
+        $user = $this->userRepository->find($userId);
+
+        $addresses = $this->userRepository->getAddresses($userId);
+
+        return view('admin.user.index', compact('user', 'addresses'));
     }
 
     /**
@@ -124,5 +130,32 @@ class UserController extends Controller
         return redirect()
             ->route('admin.users.index')
             ->with('status', 'User updated successfully!');
+    }
+
+    /**
+     * @param int $userId
+     * @return View
+     */
+    public function addressCreate(int $userId): View
+    {
+        return view('admin.user.address.create', compact('userId'));
+    }
+
+    /**
+     * @param AddressStoreRequest $request
+     * @param int $userId
+     * @return RedirectResponse
+     */
+    public function addressStore(AddressStoreRequest $request, int $userId): RedirectResponse
+    {
+        $this->userRepository
+            ->addAddress([
+                'address' => $request->getAddress(),
+                'user_id' => $userId,
+            ]);
+
+        return redirect()
+            ->route('admin.users.index')
+            ->with('status', 'Address added to user successfully!');
     }
 }

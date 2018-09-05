@@ -5,7 +5,7 @@
         <div class="row justify-content-center">
             <div class="col-md-12">
                 <div class="card">
-                    <div class="card-header">Users list</div>
+                    <div class="card-header">User information</div>
 
                     <div class="card-body">
                         @if (session('status'))
@@ -18,27 +18,32 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Name</th>
-                                <th>Lastname</th>
+                                <th>Last name</th>
                                 <th>Email</th>
-                                <th>Actions</th>
+                                <th>Registration date</th>
+                                <th>Address</th>
+                                <th>Action</th>
                             </tr>
 
-                            @foreach($users as $user)
+
                                 <tr>
                                     <td>{{ $user->id }}</td>
                                     <td>{{ $user->name }}</td>
                                     <td>{{ $user->last_name }}</td>
                                     <td>{{ $user->email }}</td>
+                                    <td>{{ $user->created_at }}</td>
                                     <td>
-                                        <a class="btn btn-success" href="{{ route('admin.users.edit', [$user->id]) }}">
-                                            {{ __('Edit') }}
-                                        </a>
-                                        <a class="btn btn-info" href="{{ route('admin.users.show', [$user->id]) }}">
-                                            {{ __('More info') }}
+                                        @foreach($addresses as $address)
+                                            {{ $address->address }}<br>
+                                        @endforeach
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-success" href="{{ route('admin.user.address.create', [$user->id]) }}">
+                                            {{ __('Add address') }}
                                         </a>
                                     </td>
                                 </tr>
-                            @endforeach
+
 
                         </table>
                     </div>
