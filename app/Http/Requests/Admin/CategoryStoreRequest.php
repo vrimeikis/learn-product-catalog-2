@@ -57,7 +57,7 @@ class CategoryStoreRequest extends FormRequest
     /**
      * @return bool
      */
-    public function getActive(): bool``
+    public function getActive(): bool
     {
         return (bool)$this->input('active');
     }
