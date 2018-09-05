@@ -11,7 +11,7 @@ $factory->define(Product::class, function(Faker $faker) {
 
     return [
         'title' => $title,
-        'cover' => 'articles/' . $faker->file(
+        'cover' => 'products/' . $faker->file(
                 resource_path('img'),
                 storage_path('app/public/products'),
                 false

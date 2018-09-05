@@ -34,6 +34,8 @@ class ProductController extends Controller
     {
         $products = $this->productRepository->paginate(5);
 
+//        dd($products);
+
         return view('admin.product.list', compact('products'));
     }
 
@@ -44,7 +46,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.product.create');
     }
 
     /**
