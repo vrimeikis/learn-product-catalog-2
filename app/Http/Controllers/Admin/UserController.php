@@ -4,9 +4,12 @@ declare (strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\UserStoreRequest;
 use App\Repositories\UserRepository;
 use App\User;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Contracts\View\View;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 
@@ -32,7 +35,7 @@ class UserController extends Controller
      * Display a listing of the resource.
      *
      * @return View
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws BindingResolutionException
      */
     public function index(): View
     {
@@ -44,22 +47,32 @@ class UserController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
-        //
+        return view('admin.user.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param UserStoreRequest $request
+     * @return RedirectResponse
+     * @throws BindingResolutionException
      */
-    public function store(Request $request)
+    public function store(UserStoreRequest $request): RedirectResponse
     {
-        //
+        $this->userRepository->create([
+            'name' => $request->getName(),
+            'last_name' => $request->getLastName(),
+            'email' => $request->getEmail(),
+            'password' => bcrypt($request->getPassword()),
+        ]);
+
+        return redirect()
+            ->route('admin.users.index')
+            ->with('status', 'User created successfully!');
     }
 
     /**
