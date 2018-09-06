@@ -6,6 +6,7 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
 use Illuminate\Notifications\Notifiable;
@@ -56,4 +57,12 @@ class User extends Authenticatable
         'password',
         'remember_token',
     ];
+
+    /**
+     * @return HasMany
+     */
+    public function addresses(): HasMany
+    {
+        return $this->hasMany(UserMetas::class);
+    }
 }

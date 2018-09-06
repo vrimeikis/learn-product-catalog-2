@@ -25,25 +25,24 @@
                                 <th>Action</th>
                             </tr>
 
-
-                                <tr>
-                                    <td>{{ $user->id }}</td>
-                                    <td>{{ $user->name }}</td>
-                                    <td>{{ $user->last_name }}</td>
-                                    <td>{{ $user->email }}</td>
-                                    <td>{{ $user->created_at }}</td>
-                                    <td>
-                                        @foreach($addresses as $address)
-                                            {{ $address->address }}<br>
-                                        @endforeach
-                                    </td>
-                                    <td>
-                                        <a class="btn btn-success" href="{{ route('admin.user.address.create', [$user->id]) }}">
-                                            {{ __('Add address') }}
-                                        </a>
-                                    </td>
-                                </tr>
-
+                            <tr>
+                                <td>{{ $user->id }}</td>
+                                <td>{{ $user->name }}</td>
+                                <td>{{ $user->last_name }}</td>
+                                <td>{{ $user->email }}</td>
+                                <td>{{ $user->created_at }}</td>
+                                <td>
+                                    @foreach($user->addresses as $address)
+                                        {{ $address->address }}<br>
+                                    @endforeach
+                                </td>
+                                <td>
+                                    <a class="btn btn-success"
+                                       href="{{ route('admin.user.address.create', [$user->id]) }}">
+                                        {{ __('Add address') }}
+                                    </a>
+                                </td>
+                            </tr>
 
                         </table>
                     </div>

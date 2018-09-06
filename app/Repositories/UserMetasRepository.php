@@ -4,19 +4,19 @@ declare (strict_types=1);
 
 namespace App\Repositories;
 
-use App\User;
+use App\UserMetas;
 
 /**
- * Class UserRepository
+ * Class UserMetasRepository
  * @package App\Repositories
  */
-class UserRepository extends Repository
+class UserMetasRepository extends Repository
 {
     /**
      * @return string
      */
     public function model(): string
     {
-        return User::class;
+        return UserMetas::class;
     }
 }

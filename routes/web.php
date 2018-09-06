@@ -22,7 +22,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
 
     Route::resource('users', 'Admin\\UserController')->except('destroy');
 
-    Route::get('user/{user}/address/create', 'Admin\\UserController@addressCreate')->name('user.address.create');
-    Route::post('user/{user}/address/store', 'Admin\\UserController@addressStore')->name('user.address.store');
+    Route::get('user/{user}/address/create', 'Admin\\UserMetasController@create')->name('user.address.create');
+    Route::post('user/{user}/address/store', 'Admin\\UserMetasController@store')->name('user.address.store');
 });
 
