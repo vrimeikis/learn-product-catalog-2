@@ -6,6 +6,10 @@ namespace App\Http\Requests;
 
 use Illuminate\Validation\Rule;
 
+/**
+ * Class UserUpdateRequest
+ * @package App\Http\Requests
+ */
 class UserUpdateRequest extends UserStoreRequest
 {
     /**
@@ -26,14 +30,16 @@ class UserUpdateRequest extends UserStoreRequest
     public function rules(): array
     {
         return [
-            'name' => 'required|string|max:255',
-            'last_name' => 'required|string|max:255',
+            'name' => 'required|string|max:30',
+            'last_name' => 'required|string|max:50',
             'email' => [
                 'required',
                 'email',
+                'max:191',
                 Rule::unique('users')->ignore($this->route()->parameter('user')),
             ],
-            'password_confirmation' => 'same:password',
+            //'password_confirmation' => 'same:password',
+            'password' => 'nullable|string|min:6|confirmed',
         ];
     }
 }
