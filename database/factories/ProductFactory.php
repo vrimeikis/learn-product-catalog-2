@@ -19,7 +19,7 @@ $factory->define(Product::class, function(Faker $faker) {
         'context' => $faker->paragraph,
         'slug' => Str::slug($title),
         'price' => $faker->numberBetween(10.00, 1000.00),
-        'active' => (bool)random_int(0, 1),
+        'active' => (int)$faker->boolean,
 
     ];
 });
