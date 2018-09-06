@@ -30,7 +30,6 @@ class ProductStoreRequest extends FormRequest
             'title' => 'required',
             'cover' => 'nullable|image',
             'price' => 'required',
-            'active'=> 'required',
         ];
     }
 
@@ -79,7 +78,8 @@ class ProductStoreRequest extends FormRequest
      */
     public function getActive(): bool
     {
-        return $this->input('active');
+
+        return $this->input('active') ? $this->input('active') : false;
     }
 
     /**

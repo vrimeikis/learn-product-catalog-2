@@ -33,6 +33,7 @@
                                 <th>Title</th>
                                 <th>Cover</th>
                                 <th>Slug</th>
+                                <th>Actions</th>
                                 <th>Price</th>
                                 <th>Available</th>
                             </tr>
@@ -50,6 +51,9 @@
                                     </td>
 
                                     <td>{{ $product->slug }}</td>
+                                    <td>
+                                        <a href="{{ route('admin.product.edit', [$product->id]) }}">Edit</a>
+                                    </td>
                                     <td>
                                         {{ $product->price }}
                                     </td>

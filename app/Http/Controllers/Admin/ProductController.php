@@ -3,15 +3,16 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\ProductStoreRequest;
+use App\Http\Requests\ProductUpdateRequest;
 use App\Product;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\Repositories\ProductRepository;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
 class ProductController extends Controller
 {
-    const COVER_DIRECTORY = 'articles';
+    const COVER_DIRECTORY = 'products';
 
     private $productRepository;
 
@@ -55,68 +56,71 @@ class ProductController extends Controller
      *
      * @param ProductStoreRequest $request
      * @return \Illuminate\Http\Response
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function store(ProductStoreRequest $request)
     {
-//        dd('inside');
-try{
+        try{
 
+            $data = [
+                'title' => $request->getTitle(),
+                'context' => $request->getContext(),
+                'cover' => $request->getCover() ? $request->getCover()->store(self::COVER_DIRECTORY) : null,
+                'price' => $request->getPrice(),
+                'slug' => $request->getSlug(),
+                'active'=> $request->getActive(),
+            ];
 
-//    dd('inside');
+            $product = $this->productRepository->create($data);
 
-    $data = [
-        'title' => $request->getTitle(),
-        'context' => $request->getContext(),
-        'cover' => $request->getCover() ? $request->getCover()->store(self::COVER_DIRECTORY) : null,
-        'price' => $request->getPrice(),
-        'slug' => $request->getSlug(),
-        'active'=> $request->getActive(),
-    ];
+            return redirect()
+                ->route('admin.product.index')
+                ->with('status', 'Product successfully created!');
 
-        $product = $this->productRepository->create($data);
-
-//        dd($product);
-
-        return redirect()
-            ->route('admin.product.index')
-            ->with('status', 'Product successfully created!');
-
-    } catch (\Throwable $e)
-        {
-            dd($e->getMessage());
-        }
-
-
-
-//        dd($data);
-
-
-
+        } catch (\Throwable $e)
+            {
+                dd($e->getMessage());
+            }
 
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param  \App\Product $product
+     * @return void
      */
     public function edit(Product $product)
     {
-        //
+        return view('admin.product.edit', compact('product'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Product  $product
-     * @return \Illuminate\Http\Response
+     * @param ProductUpdateRequest $request
+     * @param int $productId
+     * @return RedirectResponse
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function update(Request $request, Product $product)
+    public function update(ProductUpdateRequest $request, int $productId): RedirectResponse
     {
-        //
+        $data = [
+            'title' => $request->getTitle(),
+            'context' => $request->getContext(),
+            'price' => $request->getPrice(),
+            'active' => $request->getActive(),
+        ];
+
+        if($request->getCover()) {
+            $data['cover'] = $request->getCover()->store(self::COVER_DIRECTORY);
+        }
+
+        $this->productRepository->update($data, $productId);
+
+        return redirect()
+            ->route('admin.product.index')
+            ->with('status', 'Product updated successfully!');
+
     }
 
 }
