@@ -4,6 +4,7 @@ namespace Tests\Unit\Repositories;
 
 use App\Product;
 use App\Repositories\ProductRepository;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Tests\MemoryDatabaseMigrations;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -40,6 +41,67 @@ class ProductRepositoryTest extends TestCase
 
         $this->assertInstanceOf(Product::class, $result);
         $this->assertEquals($product->toArray(), $result->toArray());
+    }
+
+    /**
+     * @test
+     * @group product
+     * @throws \Exception
+     */
+    public function it_should_return_data_by_slug_and_not_id(): void
+    {
+        /** @var Product $product1 */
+        $product1 = factory(Product::class)->create();
+
+        /** @var Product $product2 */
+        $product2 = factory(Product::class)->create();
+
+        $result = $this->getTestClassInstance()->getBySlugAndNotById($product1->slug, $product2->id);
+
+        $this->assertInstanceOf(Product::class, $result);
+        $this->assertEquals($product1->toArray(), $result->toArray());
+    }
+
+    /**
+     * @test
+     * @group article
+     * @group article-repository
+     */
+    public function it_should_return_empty_paginator(): void
+    {
+        $result = $this->getTestClassInstance()->getFullData();
+
+        $this->assertInstanceOf(LengthAwarePaginator::class, $result);
+        $this->assertTrue($result->isEmpty());
+    }
+
+
+
+    /**
+     * @test
+     * @group article
+     * @throws \Exception
+     */
+    public function it_should_return_null_by_slug_and_not_id_empty_db(): void
+    {
+        $slug = str_random(10);
+        $id = mt_rand(1, 10);
+
+        $this->assertNull($this->getTestClassInstance()->getBySlugAndNotById($slug, $id));
+    }
+
+
+    /**
+     * @test
+     * @group article
+     * @throws \Exception
+     */
+    public function it_should_return_null_by_slug_and_not_id(): void
+    {
+        /** @var Product $product */
+        $product = factory(Product::class)->create();
+
+        $this->assertNull($this->getTestClassInstance()->getBySlugAndNotById($product->slug, $product->id));
     }
 
     /**
