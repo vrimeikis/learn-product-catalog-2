@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        Category New
+                        Category Edit
                     </div>
 
                     <div class="card-body">
@@ -17,14 +17,16 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('admin.categories.store') }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('admin.categories.update', [$category->id]) }}" method="post" enctype="multipart/form-data">
+
+                            {{ method_field('put') }}
 
                             {{ csrf_field() }}
 
                             <div class="form-group">
                                 <label for="title">{{ __('Title') }}:</label>
                                 <input id="title" class="form-control" type="text" name="title"
-                                       value="{{ old('title') }}">
+                                       value="{{ old('title', $category->title) }}">
                                 @if($errors->has('title'))
                                     <div class="alert-danger">{{ $errors->first('title') }}</div>
                                 @endif

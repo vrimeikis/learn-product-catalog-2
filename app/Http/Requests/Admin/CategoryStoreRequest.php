@@ -11,10 +11,11 @@ declare(strict_types = 1);
 namespace App\Http\Requests\Admin;
 
 
+use App\Repositories\Admin\CategoryRepository;
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
-use phpDocumentor\Reflection\Types\Boolean;
 
 class CategoryStoreRequest extends FormRequest
 {
@@ -44,6 +45,45 @@ class CategoryStoreRequest extends FormRequest
         return $this->input('title');
     }
 
+
+    /**
+     * @return Validator
+     */
+    protected function getValidatorInstance(): Validator
+    {
+        $validator = parent::getValidatorInstance();
+        $validator->after(function (Validator $validator) {
+            if ($this->isMethod('post') && $this->slugExists()) {
+                $validator
+                    ->errors()
+                    ->add('title', 'Category with this name allready exists!');
+            }
+
+            return;
+        });
+
+        return $validator;
+    }
+
+    /**
+     * @return bool
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    private function slugExists(): bool
+    {
+        /** @var CategoryRepository $categoryRepository */
+        $categoryRepository = app(CategoryRepository::class);
+
+        $category = $categoryRepository->getBySlug($this->getSlug());
+
+        if (!empty($category)) {
+            return true;
+        }
+
+        return false;
+    }
+
+
     /**
      * @return string
      */
@@ -51,7 +91,7 @@ class CategoryStoreRequest extends FormRequest
     {
         $slug = Str::slug($this->getTitle());
 
-
+        return $slug;
     }
 
     /**

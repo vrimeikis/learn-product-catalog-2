@@ -8,7 +8,7 @@
                 <div class="card">
                     <div class="card-header">
                         Categories
-
+                        <a class="btn btn-sm btn-primary" href="{{ route('admin.categories.create') }}">{{ __('New') }}</a>
                     </div>
 
                     <div class="card-body">
@@ -38,9 +38,15 @@
                                     <td>{{ $category->title }}</td>
                                     <td>{{ $category->slug }}</td>
                                     <td>{{ $category->active }}</td>
-                                    <td>{{ $category->cover }}</td>
                                     <td>
-
+                                        {{ $category->cover }}
+                                        @if ($category->cover)
+                                            <img width="100" src="{{ Storage::url($category->cover) }}">
+                                        @endif
+                                    </td>
+                                    <td>
+                                        <a class="btn btn-sm btn-success"
+                                           href="{{ route('admin.categories.edit', [$category->id]) }}">{{ __('Edit') }}</a>
                                     </td>
                                 </tr>
                             @endforeach
