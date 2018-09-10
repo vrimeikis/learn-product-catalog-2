@@ -76,8 +76,7 @@ class ProductRepositoryTest extends TestCase
         $this->assertTrue($result->isEmpty());
     }
 
-
-
+    
     /**
      * @test
      * @group article
@@ -116,35 +115,6 @@ class ProductRepositoryTest extends TestCase
 
         $this->assertNull($this->getTestClassInstance()->getBySlug($slug));
     }
-
-
-//    /**
-//     * @test
-//     * @group product
-//     * @group product-repository
-//     * @throws \Exception
-//     */
-//    public function it_should_return_paginator_with_data(): void
-//    {
-//        /** @var Collection|Product[] $products */
-//        $products = factory(Product::class, 5)->create();
-//
-//        $expectedData = [];
-//
-//        $products->each(function(Product $product) use (&$expectedData) {
-//            $item = $product->toArray();
-//
-//            array_set($item, 'product', $product->toArray());
-//
-//            array_push($expectedData, $item);
-//        });
-//
-//        $result = $this->getTestClassInstance()->getFullData();
-//
-//        $this->assertInstanceOf(LengthAwarePaginator::class, $result);
-//        $this->assertTrue($result->isNotEmpty());
-//        $this->assertEquals($expectedData, collect($result->items())->toArray());
-//    }
 
 
     /**

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\ProductStoreRequest;
@@ -10,12 +12,21 @@ use App\Repositories\ProductRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
+/**
+ * Class ProductController
+ * @package App\Http\Controllers\Admin
+ */
 class ProductController extends Controller
 {
+    /**
+     *
+     */
     const COVER_DIRECTORY = 'products';
 
+    /**
+     * @var ProductRepository
+     */
     private $productRepository;
-
 
     /**
      * ProductController constructor.
@@ -36,17 +47,15 @@ class ProductController extends Controller
     {
         $products = $this->productRepository->paginate(5);
 
-//        dd($products);
-
         return view('admin.product.list', compact('products'));
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
         return view('admin.product.create');
     }
@@ -55,12 +64,11 @@ class ProductController extends Controller
      * Store a newly created resource in storage.
      *
      * @param ProductStoreRequest $request
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
      */
-    public function store(ProductStoreRequest $request)
+    public function store(ProductStoreRequest $request): RedirectResponse
     {
         try{
-
             $data = [
                 'title' => $request->getTitle(),
                 'context' => $request->getContext(),
@@ -87,9 +95,9 @@ class ProductController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  \App\Product $product
-     * @return void
+     * @return View
      */
-    public function edit(Product $product)
+    public function edit(Product $product): View
     {
         return view('admin.product.edit', compact('product'));
     }
@@ -120,7 +128,5 @@ class ProductController extends Controller
         return redirect()
             ->route('admin.product.index')
             ->with('status', 'Product updated successfully!');
-
     }
-
 }
