@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 use App\Product;
 use Faker\Generator as Faker;
 use Illuminate\Support\Str;

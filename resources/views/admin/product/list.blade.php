@@ -33,9 +33,9 @@
                                 <th>Title</th>
                                 <th>Cover</th>
                                 <th>Slug</th>
-                                <th>Actions</th>
                                 <th>Price</th>
                                 <th>Available</th>
+                                <th>Actions</th>
                             </tr>
 
                             @foreach($products as $product)
@@ -51,9 +51,7 @@
                                     </td>
 
                                     <td>{{ $product->slug }}</td>
-                                    <td>
-                                        <a href="{{ route('admin.product.edit', [$product->id]) }}">Edit</a>
-                                    </td>
+
                                     <td>
                                         {{ $product->price }}
                                     </td>
@@ -63,6 +61,9 @@
                                             @else
                                             <p style="color: red;">Inactive</p>
                                         @endif
+                                    </td>
+                                    <td>
+                                        <a href="{{ route('admin.product.edit', [$product->id]) }}">Edit</a>
                                     </td>
                                 </tr>
                             @endforeach

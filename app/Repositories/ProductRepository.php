@@ -26,52 +26,6 @@ class ProductRepository extends Repository
     }
 
     /**
-     * Return first row from DB or null if not found
-     *
-     * @param string $slug
-     * @return Builder|\Illuminate\Database\Eloquent\Model|null|object
-     * @throws \Exception
-     */
-    public function getBySlug(string $slug)
-    {
-        return $this->getBySlugBuilder($slug)->first();
-    }
-
-    /**
-     * @param string $slug
-     * @param int $id
-     * @return Builder|\Illuminate\Database\Eloquent\Model|null|object
-     * @throws \Exception
-     */
-    public function getBySlugAndNotById(string $slug, int $id)
-    {
-        return $this->getBySlugBuilder($slug)
-            ->where('id', '!=', $id)
-            ->first();
-    }
-
-    /**
-     * @return LengthAwarePaginator
-     */
-    public function getFullData(): LengthAwarePaginator
-    {
-        $products = DB::table('products')->paginate();
-
-        return $products;
-    }
-
-    /**
-     * @param int $productId
-     * @return Product|Model
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
-     */
-    public function getFullDataById(int $productId): Product
-    {
-        return $this->makeQuery()
-            ->findOrFail($productId);
-    }
-
-    /**
      * @param string $slug
      * @return Builder
      * @throws \Exception

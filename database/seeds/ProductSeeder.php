@@ -1,8 +1,13 @@
 <?php
 
+declare(strict_types = 1);
+
 use App\Product;
 use Illuminate\Database\Seeder;
 
+/**
+ * Class ProductSeeder
+ */
 class ProductSeeder extends Seeder
 {
     /**
@@ -10,7 +15,7 @@ class ProductSeeder extends Seeder
      *
      * @return void
      */
-    public function run()
+    public function run(): void
     {
         factory(Product::class, 7)->create();
     }

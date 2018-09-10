@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types =1);
+
 namespace Tests\Unit\Repositories;
 
 use App\Product;
@@ -8,9 +10,12 @@ use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Tests\MemoryDatabaseMigrations;
 use Tests\TestCase;
-use Illuminate\Foundation\Testing\WithFaker;
-use Illuminate\Foundation\Testing\RefreshDatabase;
 
+
+/**
+ * Class ProductRepositoryTest
+ * @package Tests\Unit\Repositories
+ */
 class ProductRepositoryTest extends TestCase
 {
     use MemoryDatabaseMigrations;
