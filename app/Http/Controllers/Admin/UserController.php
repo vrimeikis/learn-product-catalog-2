@@ -121,7 +121,7 @@ class UserController extends Controller
             'email' => $request->getEmail(),
         ];
 
-        if (!empty($request->getPassword())) {
+        if ($request->getPassword()) {
             array_set($data, 'password', bcrypt($request->getPassword()));
         }
 
