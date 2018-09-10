@@ -4,9 +4,8 @@ declare(strict_types = 1);
 
 namespace App\Http\Requests;
 
-use App\Repositories\ProductRepository;
-use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Support\Str;
+use Illuminate\Validation\Rule;
 
 /**
  * Class ProductUpdateRequest
@@ -31,44 +30,15 @@ class ProductUpdateRequest extends ProductStoreRequest
      */
     public function rules(): array
     {
-        return parent::rules();
-    }
-
-
-    /**
-     * Validate slug in DB on update request
-     *
-     * @return Validator
-     */
-    protected function getValidatorInstance(): Validator
-    {
-        $validator = parent::getValidatorInstance();
-        $validator->after(function (Validator $validator) {
-            if ($this->isMethod('put') && $this->slugExists()) {
-                $validator->errors()->add('slug', 'Slug already exists.');
-
-                return;
-            }
-        });
-
-        return $validator;
-    }
-
-    /**
-     * @return bool
-     * @throws \Exception
-     */
-    protected function slugExists(): bool
-    {
-        /** @var ProductRepository $productRepository */
-        $productRepository = app(ProductRepository::class);
-
-        $slug = $productRepository->getBySlugAndNotById(
-            $this->getSlug(),
-            $this->route()->parameter('product')
+        return array_merge(
+            parent::rules(),
+            [
+                'slug' =>[
+                    'nullable',
+                    Rule::unique('products')->ignore($this->route()->parameter('product'))
+                ]
+            ]
         );
-
-        return !empty($slug);
     }
 
     /**
