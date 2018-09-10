@@ -19,5 +19,10 @@ Auth::routes();
 
 Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], function() {
     Route::get('/', 'Admin\\HomeController@index')->name('home');
+
+    Route::resource('users', 'Admin\\UserController')->except('destroy');
+
+    Route::get('user/{user}/address/create', 'Admin\\UserMetasController@create')->name('user.address.create');
+    Route::post('user/{user}/address/store', 'Admin\\UserMetasController@store')->name('user.address.store');
 });
 

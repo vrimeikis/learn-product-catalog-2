@@ -4,6 +4,8 @@ declare(strict_types = 1);
 
 namespace App\Providers;
 
+use App\Repositories\UserMetasRepository;
+use App\Repositories\UserRepository;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -39,6 +41,8 @@ class AppServiceProvider extends ServiceProvider
      */
     private function registerRepositories(): void
     {
+        $this->app->singleton(UserRepository::class);
+        $this->app->singleton(UserMetasRepository::class);
     }
 
     /**
