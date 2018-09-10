@@ -63,6 +63,6 @@ class User extends Authenticatable
      */
     public function addresses(): HasMany
     {
-        return $this->hasMany(UserMetas::class);
+        return $this->hasMany(UserMeta::class);
     }
 }

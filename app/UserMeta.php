@@ -7,16 +7,11 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class UserMetas
+ * Class UserMeta
  * @package App
  */
-class UserMetas extends Model
+class UserMeta extends Model
 {
-    /**
-     * @var string
-     */
-    protected $table = 'user_metas';
-
     /**
      * @var array
      */

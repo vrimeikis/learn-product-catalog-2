@@ -4,7 +4,7 @@ declare (strict_types=1);
 
 namespace App\Repositories;
 
-use App\UserMetas;
+use App\UserMeta;
 
 /**
  * Class UserMetasRepository
@@ -17,6 +17,6 @@ class UserMetasRepository extends Repository
      */
     public function model(): string
     {
-        return UserMetas::class;
+        return UserMeta::class;
     }
 }
