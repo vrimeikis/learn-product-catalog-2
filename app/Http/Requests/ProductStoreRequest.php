@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace App\Http\Requests;
 
 use App\Repositories\ProductRepository;
@@ -7,6 +9,10 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 
+/**
+ * Class ProductStoreRequest
+ * @package App\Http\Requests
+ */
 class ProductStoreRequest extends FormRequest
 {
     /**
@@ -14,7 +20,7 @@ class ProductStoreRequest extends FormRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }
@@ -24,7 +30,7 @@ class ProductStoreRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'title' => 'required',
@@ -104,7 +110,7 @@ class ProductStoreRequest extends FormRequest
      * @return mixed
      * @throws \Exception
      */
-    public function getBySlug(string $slug)
+    public function getBySlug(string $slug): string
     {
         return $this->getBySlugBuilder($slug)->first();
     }
@@ -114,7 +120,7 @@ class ProductStoreRequest extends FormRequest
      * @return Builder
      * @throws \Exception
      */
-    private function getBySlugBuilder(string $slug): Builder
+    private function getBySlugBuilder(string $slug): string
     {
         return $this->makeQuery()
             ->where('slug', $slug);

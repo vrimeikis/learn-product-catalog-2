@@ -1,11 +1,17 @@
 <?php
 
+declare(strict_types = 1);
+
 namespace App\Http\Requests;
 
 use App\Repositories\ProductRepository;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Support\Str;
 
+/**
+ * Class ProductUpdateRequest
+ * @package App\Http\Requests
+ */
 class ProductUpdateRequest extends ProductStoreRequest
 {
     /**
@@ -13,7 +19,7 @@ class ProductUpdateRequest extends ProductStoreRequest
      *
      * @return bool
      */
-    public function authorize()
+    public function authorize(): bool
     {
         return true;
     }

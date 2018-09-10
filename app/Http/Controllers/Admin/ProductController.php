@@ -65,29 +65,24 @@ class ProductController extends Controller
      *
      * @param ProductStoreRequest $request
      * @return RedirectResponse
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function store(ProductStoreRequest $request): RedirectResponse
     {
-        try{
-            $data = [
-                'title' => $request->getTitle(),
-                'context' => $request->getContext(),
-                'cover' => $request->getCover() ? $request->getCover()->store(self::COVER_DIRECTORY) : null,
-                'price' => $request->getPrice(),
-                'slug' => $request->getSlug(),
-                'active'=> $request->getActive(),
-            ];
+        $data = [
+            'title' => $request->getTitle(),
+            'context' => $request->getContext(),
+            'cover' => $request->getCover() ? $request->getCover()->store(self::COVER_DIRECTORY) : null,
+            'price' => $request->getPrice(),
+            'slug' => $request->getSlug(),
+            'active'=> $request->getActive(),
+        ];
 
-            $product = $this->productRepository->create($data);
+        $product = $this->productRepository->create($data);
 
-            return redirect()
-                ->route('admin.product.index')
-                ->with('status', 'Product successfully created!');
-
-        } catch (\Throwable $e)
-            {
-                dd($e->getMessage());
-            }
+        return redirect()
+            ->route('admin.product.index')
+            ->with('status', 'Product successfully created!');
 
     }
 

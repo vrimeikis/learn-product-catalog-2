@@ -76,7 +76,7 @@ class ProductRepositoryTest extends TestCase
         $this->assertTrue($result->isEmpty());
     }
 
-    
+
     /**
      * @test
      * @group article
