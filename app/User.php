@@ -6,6 +6,7 @@ namespace App;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Notifications\DatabaseNotification;
 use Illuminate\Notifications\DatabaseNotificationCollection;
@@ -31,6 +32,9 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
  * @method static Builder|User whereRememberToken($value)
  * @method static Builder|User whereUpdatedAt($value)
  * @mixin \Eloquent
+ * @property string $last_name
+ * @property-read Collection|UserMeta[] $addresses
+ * @method static Builder|User whereLastName($value)
  */
 class User extends Authenticatable
 {
