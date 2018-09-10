@@ -24,5 +24,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
 
     Route::get('user/{user}/address/create', 'Admin\\UserMetasController@create')->name('user.address.create');
     Route::post('user/{user}/address/store', 'Admin\\UserMetasController@store')->name('user.address.store');
+
+    Route::resource('product', 'Admin\\ProductController')->except(['show', 'destroy']);
 });
 

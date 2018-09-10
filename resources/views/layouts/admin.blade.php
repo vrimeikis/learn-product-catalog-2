@@ -48,6 +48,9 @@
                                 <a class="nav-link" href="{{ route('register') }}">{{ __('Register') }}</a>
                             </li>
                         @else
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.product.index') }}">{{ __('Product') }}</a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link" href="{{ route('admin.users.index') }}" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ __('Users') }} <span class="caret"></span>
