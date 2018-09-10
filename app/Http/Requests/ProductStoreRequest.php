@@ -52,7 +52,7 @@ class ProductStoreRequest extends FormRequest
      */
     public function getPrice(): int
     {
-        return $this->input('price');
+        return (int)$this->input('price');
     }
 
     /**
@@ -85,7 +85,7 @@ class ProductStoreRequest extends FormRequest
     public function getActive(): bool
     {
 
-        return $this->input('active') ? $this->input('active') : false;
+        return (bool)$this->input('active');
     }
 
     /**
@@ -94,13 +94,9 @@ class ProductStoreRequest extends FormRequest
      */
     protected function slugExists(): bool
     {
-
         /** @var ProductRepository $productRepository */
         $productRepository = app(ProductRepository::class);
-
-
         $slug = $productRepository->getBySlug($this->getSlug());
-
 
         return !empty($slug);
     }
