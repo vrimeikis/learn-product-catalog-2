@@ -40,6 +40,8 @@ class AppServiceProvider extends ServiceProvider
      */
     private function registerRepositories(): void
     {
+        
+        
         $this->app->singleton(ProductRepository::class);
     }
 
