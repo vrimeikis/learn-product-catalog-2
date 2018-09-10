@@ -5,6 +5,7 @@ namespace Tests\Unit\Repositories;
 use App\Product;
 use App\Repositories\ProductRepository;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Tests\MemoryDatabaseMigrations;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\WithFaker;
@@ -115,6 +116,52 @@ class ProductRepositoryTest extends TestCase
 
         $this->assertNull($this->getTestClassInstance()->getBySlug($slug));
     }
+
+
+//    /**
+//     * @test
+//     * @group product
+//     * @group product-repository
+//     * @throws \Exception
+//     */
+//    public function it_should_return_paginator_with_data(): void
+//    {
+//        /** @var Collection|Product[] $products */
+//        $products = factory(Product::class, 5)->create();
+//
+//        $expectedData = [];
+//
+//        $products->each(function(Product $product) use (&$expectedData) {
+//            $item = $product->toArray();
+//
+//            array_set($item, 'product', $product->toArray());
+//
+//            array_push($expectedData, $item);
+//        });
+//
+//        $result = $this->getTestClassInstance()->getFullData();
+//
+//        $this->assertInstanceOf(LengthAwarePaginator::class, $result);
+//        $this->assertTrue($result->isNotEmpty());
+//        $this->assertEquals($expectedData, collect($result->items())->toArray());
+//    }
+
+
+    /**
+     * @test
+     * @group product
+     * @group product-repository
+     * @throws \Exception
+     */
+    public function it_should_expect_model_not_found_on_by_id(): void
+    {
+        $id = mt_rand(1, 100);
+
+        $this->expectException(ModelNotFoundException::class);
+
+        $this->getTestClassInstance()->getFullDataById($id);
+    }
+
 
     /**
      * @return ProductRepository

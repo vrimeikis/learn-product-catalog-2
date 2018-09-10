@@ -60,6 +60,17 @@ class ProductRepository extends Repository
     }
 
     /**
+     * @param int $productId
+     * @return Product|Model
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
+    public function getFullDataById(int $productId): Product
+    {
+        return $this->makeQuery()
+            ->findOrFail($productId);
+    }
+
+    /**
      * @param string $slug
      * @return Builder
      * @throws \Exception
