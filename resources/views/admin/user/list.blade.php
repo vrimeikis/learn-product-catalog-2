@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">
                         Users list
-                        <a class="btn btn-success" href="{{ route('admin.users.create') }}">
+                        <a class="btn btn-sm btn-primary" href="{{ route('admin.users.create') }}">
                             {{ __('New') }}
                         </a>
                     </div>
@@ -35,10 +35,10 @@
                                     <td>{{ $user->last_name }}</td>
                                     <td>{{ $user->email }}</td>
                                     <td>
-                                        <a class="btn btn-success" href="{{ route('admin.users.edit', [$user->id]) }}">
+                                        <a class="btn btn-sm btn-success" href="{{ route('admin.users.edit', [$user->id]) }}">
                                             {{ __('Edit') }}
                                         </a>
-                                        <a class="btn btn-info" href="{{ route('admin.users.show', [$user->id]) }}">
+                                        <a class="btn btn-sm btn-info" href="{{ route('admin.users.show', [$user->id]) }}">
                                             {{ __('More info') }}
                                         </a>
                                     </td>
