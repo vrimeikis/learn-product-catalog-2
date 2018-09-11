@@ -26,5 +26,6 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
     Route::post('user/{user}/address/store', 'Admin\\UserMetasController@store')->name('user.address.store');
 
     Route::resource('product', 'Admin\\ProductController')->except(['show', 'destroy']);
+    Route::resource('categories', 'Admin\\CategoryController')->except(['show', 'destroy']);
 });
 

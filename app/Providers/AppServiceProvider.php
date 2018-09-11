@@ -7,6 +7,7 @@ namespace App\Providers;
 use App\Repositories\UserMetasRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\ProductRepository;
+use App\Repositories\CategoryRepository;
 use Illuminate\Support\Facades\Schema;
 use Illuminate\Support\ServiceProvider;
 
@@ -46,6 +47,7 @@ class AppServiceProvider extends ServiceProvider
         $this->app->singleton(UserMetasRepository::class);
 
         $this->app->singleton(ProductRepository::class);
+        $this->app->singleton(CategoryRepository::class);
     }
 
     /**
