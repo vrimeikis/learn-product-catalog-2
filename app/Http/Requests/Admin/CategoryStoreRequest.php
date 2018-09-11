@@ -11,7 +11,7 @@ declare(strict_types = 1);
 namespace App\Http\Requests\Admin;
 
 
-use App\Repositories\Admin\CategoryRepository;
+use App\Repositories\CategoryRepository;
 use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\UploadedFile;

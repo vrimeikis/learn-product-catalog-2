@@ -12,7 +12,7 @@ namespace Tests\Unit\Repositories;
 
 
 use App\Category;
-use App\Repositories\Admin\CategoryRepository;
+use App\Repositories\CategoryRepository;
 use Tests\MemoryDatabaseMigrations;
 use Tests\TestCase;
 

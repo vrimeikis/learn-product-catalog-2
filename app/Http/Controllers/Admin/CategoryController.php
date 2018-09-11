@@ -7,9 +7,8 @@ namespace App\Http\Controllers\Admin;
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Admin\CategoryStoreRequest;
 use App\Http\Requests\Admin\CategoryUpdateRequest;
-use App\Repositories\Admin\CategoryRepository;
+use App\Repositories\CategoryRepository;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class CategoryController extends Controller
