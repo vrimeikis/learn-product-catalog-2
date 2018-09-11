@@ -32,6 +32,7 @@
 - Add your `database credentials` to `.env` file.
 - Run `composer install` command.
 - Run `php artisan key:generate` command.
+- Run `php artisan storage:link` command.
 - Run `php artisan migrate` command.
 
 ### DEV
