@@ -1,18 +1,18 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: evis
- * Date: 18.9.6
- * Time: 18.22
- */
 
-namespace App\Repositories\Admin;
+declare(strict_types = 1);
 
+namespace App\Repositories;
 
 use App\Category;
-use App\Repositories\Repository;
+use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Model;
 
+/**
+ * Class CategoryRepository
+ * @package App\Repositories
+ */
 class CategoryRepository extends Repository
 {
 
@@ -26,10 +26,10 @@ class CategoryRepository extends Repository
 
     /**
      * @param string $slug
-     * @return mixed
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @return Category|Model|null
+     * @throws BindingResolutionException
      */
-    public function getBySlug(string $slug)
+    public function getBySlug(string $slug): ? Category
     {
         return $this->getBySlugBuilder($slug)
             ->first();
@@ -38,10 +38,10 @@ class CategoryRepository extends Repository
     /**
      * @param string $slug
      * @param int $id
-     * @return Builder|\Illuminate\Database\Eloquent\Model|null|object
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @return Category|Model|null
+     * @throws BindingResolutionException
      */
-    public function getBySlugAndNotId(string $slug, int $id)
+    public function getBySlugAndNotId(string $slug, int $id): ? Category
     {
         return $this->getBySlugBuilder($slug)
             ->where('id', '!=', $id)
@@ -51,7 +51,7 @@ class CategoryRepository extends Repository
     /**
      * @param string $slug
      * @return Builder
-     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     * @throws BindingResolutionException
      */
     private function getBySlugBuilder(string $slug): Builder
     {
