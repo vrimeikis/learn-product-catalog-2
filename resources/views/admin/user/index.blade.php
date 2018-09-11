@@ -37,7 +37,7 @@
                                     @endforeach
                                 </td>
                                 <td>
-                                    <a class="btn btn-success"
+                                    <a class="btn btn-sm btn-success"
                                        href="{{ route('admin.user.address.create', [$user->id]) }}">
                                         {{ __('Add address') }}
                                     </a>

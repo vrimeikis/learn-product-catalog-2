@@ -74,7 +74,7 @@ class ProductStoreRequest extends FormRequest
     /**
      * @return string
      */
-    public function getContext(): string
+    public function getContext(): ?string
     {
         return $this->input('context');
     }
