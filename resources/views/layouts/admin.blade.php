@@ -49,6 +49,9 @@
                             </li>
                         @else
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.categories.index') }}">{{ __('Categories') }}</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('admin.product.index') }}">{{ __('Product') }}</a>
                             </li>
                             <li class="nav-item dropdown">
