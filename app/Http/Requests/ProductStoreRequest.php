@@ -48,6 +48,14 @@ class ProductStoreRequest extends FormRequest
     }
 
     /**
+     * @return array
+     */
+    public function getCategoriesIds(): array
+    {
+        return $this->input('category', []);
+    }
+
+    /**
      * @return int
      */
     public function getPrice(): int

@@ -8,8 +8,10 @@ use App\Http\Requests\ProductStoreRequest;
 use App\Http\Requests\ProductUpdateRequest;
 use App\Product;
 use App\Http\Controllers\Controller;
+use App\Repositories\CategoryRepository;
 use App\Repositories\ProductRepository;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Collection;
 use Illuminate\View\View;
 
 /**
@@ -29,12 +31,19 @@ class ProductController extends Controller
     private $productRepository;
 
     /**
+     * @var CategoryRepository
+     */
+    private $categoryRepository;
+
+    /**
      * ProductController constructor.
      * @param ProductRepository $productRepository
+     * @param CategoryRepository $categoryRepository
      */
-    public function __construct(ProductRepository $productRepository)
+    public function __construct(ProductRepository $productRepository, CategoryRepository $categoryRepository)
     {
         $this->productRepository = $productRepository;
+        $this->categoryRepository = $categoryRepository;
     }
 
     /**
@@ -54,10 +63,14 @@ class ProductController extends Controller
      * Show the form for creating a new resource.
      *
      * @return View
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
     public function create(): View
     {
-        return view('admin.product.create');
+        /** @var Collection $categories */
+        $categories = $this->categoryRepository->all();
+
+        return view('admin.product.create', compact('categories'));
     }
 
     /**
@@ -78,7 +91,10 @@ class ProductController extends Controller
             'active'=> $request->getActive(),
         ];
 
+        /** @var Product $product */
         $product = $this->productRepository->create($data);
+
+        $product->categories()->attach($request->getCategoriesIds());
 
         return redirect()
             ->route('admin.product.index')
@@ -89,12 +105,18 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Product $product
+     * @param int $productId
      * @return View
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
      */
-    public function edit(Product $product): View
+    public function edit(int $productId): View
     {
-        return view('admin.product.edit', compact('product'));
+
+        $product = $this->productRepository->find($productId);
+
+        $categories = $this->categoryRepository->all();
+
+        return view('admin.product.edit', compact('product', 'categories'));
     }
 
     /**
@@ -119,6 +141,12 @@ class ProductController extends Controller
         }
 
         $this->productRepository->update($data, $productId);
+
+        /** @var Product $product */
+        $product = $this->productRepository->find($productId);
+
+        $product->categories()->sync($request->getCategoriesIds());
+
 
         return redirect()
             ->route('admin.product.index')
