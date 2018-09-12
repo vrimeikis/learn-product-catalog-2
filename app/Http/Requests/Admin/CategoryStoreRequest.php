@@ -40,7 +40,7 @@ class CategoryStoreRequest extends FormRequest
     /**
      * @return string
      */
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->input('title');
     }
