@@ -48,5 +48,4 @@ class ProductUpdateRequest extends ProductStoreRequest
     {
         return Str::slug($this->input('slug') ?: $this->getTitle());
     }
-
 }
