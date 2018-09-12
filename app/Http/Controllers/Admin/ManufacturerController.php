@@ -4,10 +4,13 @@ declare (strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
+use App\Http\Requests\ManufacturerStoreRequest;
 use App\Repositories\ManufacturerRepository;
 use Illuminate\Contracts\Container\BindingResolutionException;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 /**
@@ -16,6 +19,8 @@ use Illuminate\View\View;
  */
 class ManufacturerController extends Controller
 {
+    const COVER_DIRECTORY = 'manufactures';
+
     /** @var ManufacturerRepository */
     private $manufacturerRepository;
 
@@ -44,22 +49,39 @@ class ManufacturerController extends Controller
     /**
      * Show the form for creating a new resource.
      *
-     * @return \Illuminate\Http\Response
+     * @return View
      */
-    public function create()
+    public function create(): View
     {
-        //
+        return view('admin.manufacturer.create');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
-     * @return \Illuminate\Http\Response
+     * @param ManufacturerStoreRequest $request
+     * @return RedirectResponse
+     * @throws BindingResolutionException
      */
-    public function store(Request $request)
+    public function store(ManufacturerStoreRequest $request): RedirectResponse
     {
-        //
+        $data = [
+            'title' => $request->getTitle(),
+            'description' => $request->getDescription(),
+            'address' => $request->getAddress(),
+            'email' => $request->getEmail(),
+            'phone' => $request->getPhone(),
+            'logo' => $request->getLogo() ? $request->getLogo()->store(self::COVER_DIRECTORY) : null,
+            'active' => $request->getActive(),
+        ];
+
+        array_set($data, 'slug', empty($request->getSlug()) ? Str::slug($request->getTitle()) : Str::slug($request->getSlug()));
+
+        $this->manufacturerRepository->create($data);
+
+        return redirect()
+            ->route('admin.manufacturers.index')
+            ->with('status', 'Manufacturer created successfully!');
     }
 
     /**

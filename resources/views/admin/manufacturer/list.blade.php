@@ -7,7 +7,7 @@
                 <div class="card">
                     <div class="card-header">
                         Manufacturers list
-                        <a class="btn btn-sm btn-primary" href="{{ route('admin.manufacturer.create') }}">
+                        <a class="btn btn-sm btn-primary" href="{{ route('admin.manufacturers.create') }}">
                             {{ __('New') }}
                         </a>
                     </div>
@@ -19,12 +19,13 @@
                             </div>
                         @endif
 
+                        @if($manufacturers->IsNotEmpty())
                         <table class="table">
                             <tr>
                                 <th>ID</th>
+                                <th>Logo</th>
                                 <th>Title</th>
                                 <th>Slug</th>
-                                <th>Logo</th>
                                 <th>Active</th>
                                 <th>Actions</th>
                             </tr>
@@ -32,15 +33,19 @@
                             @foreach($manufacturers as $manufacturer)
                                 <tr>
                                     <td>{{ $manufacturer->id }}</td>
+                                    <td>
+                                        @if ($manufacturer->logo)
+                                            <img src="{{ Storage::url($manufacturer->logo) }}" height="30">
+                                        @endif
+                                    </td>
                                     <td>{{ $manufacturer->title }}</td>
                                     <td>{{ $manufacturer->slug }}</td>
-                                    <td>{{ $manufacturer->logo }}</td>
-                                    <td>{{ $manufacturer->active }}</td>
+                                    <td>{{ ($manufacturer->active)? 'Active': 'Inactive' }}</td>
                                     <td>
-                                        <a class="btn btn-sm btn-success" href="{{ route('admin.manufacturer.edit', [$manufacturer->id]) }}">
+                                        <a class="btn btn-sm btn-success" href="{{ route('admin.manufacturers.edit', [$manufacturer->id]) }}">
                                             {{ __('Edit') }}
                                         </a>
-                                        <a class="btn btn-sm btn-info" href="{{ route('admin.manufacturer.show', [$manufacturer->id]) }}">
+                                        <a class="btn btn-sm btn-info" href="{{ route('admin.manufacturers.show', [$manufacturer->id]) }}">
                                             {{ __('More info') }}
                                         </a>
                                     </td>
@@ -49,6 +54,9 @@
 
                         </table>
                         {{ $manufacturers->links() }}
+                        @else
+                            No manufactures yet!
+                        @endif
                     </div>
                 </div>
             </div>
