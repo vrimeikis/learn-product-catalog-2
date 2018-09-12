@@ -7,8 +7,8 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        Categories list
-                        <a class="btn btn-sm btn-primary" href="{{ route('admin.categories.create') }}">{{ __('New') }}</a>
+                        Suppliers list
+                        <a class="btn btn-sm btn-primary" href="{{ route('admin.suppliers.create') }}">{{ __('New') }}</a>
                     </div>
 
                     <div class="card-body">
@@ -21,38 +21,40 @@
                         <table class="table">
                             <tr>
                                 <th>ID</th>
-                                <th>Created at</th>
-                                <th>Updated at</th>
+                                <th>Logo</th>
                                 <th>Title</th>
                                 <th>Slug</th>
                                 <th>Active</th>
-                                <th>Cover</th>
                                 <th>Actions</th>
                             </tr>
 
-                            @foreach($categories as $category)
+                            @foreach($suppliers as $supplier)
                                 <tr>
-                                    <td>{{ $category->id}}</td>
-                                    <td>{{ $category->created_at }}</td>
-                                    <td>{{ $category->updated_at }}</td>
-                                    <td>{{ $category->title }}</td>
-                                    <td>{{ $category->slug }}</td>
-                                    <td>{{ $category->active }}</td>
+                                    <td>{{ $supplier->id}}</td>
                                     <td>
-                                        {{ $category->cover }}
-                                        @if ($category->cover)
-                                            <img width="100" src="{{ Storage::url($category->cover) }}">
+
+                                        @if ($supplier->logo)
+                                            <img width="100" src="{{ Storage::url($supplier->logo) }}">
                                         @endif
                                     </td>
+                                    <td>{{ $supplier->title }}</td>
+                                    <td>{{ $supplier->slug }}</td>
+                                    <td>{{ $supplier->active }}</td>
+
                                     <td>
                                         <a class="btn btn-sm btn-success"
-                                           href="{{ route('admin.categories.edit', [$category->id]) }}">{{ __('Edit') }}</a>
+                                           href="{{ route('admin.suppliers.edit', [$supplier->id]) }}">{{ __('Edit') }}
+                                        </a>
+
+                                        <a class="btn btn-sm btn-success"
+                                           href="{{ route('admin.suppliers.show', [$supplier->id]) }}">{{ __('More info') }}
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
 
                         </table>
-                        {{ $categories->links() }}
+                        {{ $suppliers->links() }}
                     </div>
                 </div>
             </div>

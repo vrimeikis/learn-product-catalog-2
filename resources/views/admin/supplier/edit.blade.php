@@ -7,7 +7,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        Category Edit
+                        Supplier's Edit
                     </div>
 
                     <div class="card-body">
@@ -17,7 +17,7 @@
                             </div>
                         @endif
 
-                        <form action="{{ route('admin.categories.update', [$category->id]) }}" method="post" enctype="multipart/form-data">
+                        <form action="{{ route('admin.supplier.update', [$supplier->id]) }}" method="post" enctype="multipart/form-data">
 
                             {{ method_field('put') }}
 
@@ -46,10 +46,10 @@
                             </div>
 
                             <div class="form-group">
-                                <label for="cover">{{ __('Cover') }}</label>
-                                <input id="cover" class="form-control" type="file" name="cover" accept=".jpg, .jpeg, .png">
-                                @if($errors->has('cover'))
-                                    <div class="alert-danger">{{ $errors->first('cover') }}</div>
+                                <label for="logo">{{ __('Logo') }}</label>
+                                <input id="logo" class="form-control" type="file" name="logo" accept=".jpg, .jpeg, .png">
+                                @if($errors->has('logo'))
+                                    <div class="alert-danger">{{ $errors->first('logo') }}</div>
                                 @endif
                             </div>
 

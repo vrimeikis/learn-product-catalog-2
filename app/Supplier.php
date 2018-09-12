@@ -1,29 +1,26 @@
 <?php
 
-declare(strict_types = 1);
-
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Product
+ * Class Supplier
  * @package App
  */
-class Product extends Model
+class Supplier extends Model
 {
-
     /**
-     * @var $array
+     * @var array
      */
     protected $fillable = [
-
         'title',
-        'price',
-        'context',
-        'cover',
         'slug',
-        'active',
-
+        'description',
+        'address',
+        'phone',
+        'email',
+        'logo',
+        'active'
     ];
 }

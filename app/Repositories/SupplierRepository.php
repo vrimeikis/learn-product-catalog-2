@@ -1,19 +1,23 @@
 <?php
-
-declare(strict_types = 1);
+/**
+ * Created by PhpStorm.
+ * User: mind
+ * Date: 18.9.12
+ * Time: 19.09
+ */
+declare(strict_types=1);
 
 namespace App\Repositories;
 
-use App\Category;
+
+
+use App\Supplier;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\Model;
 
-/**
- * Class CategoryRepository
- * @package App\Repositories
- */
-class CategoryRepository extends Repository
+
+
+class SupplierRepository extends Repository
 {
 
     /**
@@ -21,15 +25,15 @@ class CategoryRepository extends Repository
      */
     public function model(): string
     {
-        return Category::class;
+        return Supplier::class;
     }
 
     /**
      * @param string $slug
-     * @return Category|Model|null
+     * @return Supplier|Model|null
      * @throws BindingResolutionException
      */
-    public function getBySlug(string $slug): ? Category
+    public function getBySlug(string $slug): ? Supplier
     {
         return $this->getBySlugBuilder($slug)
             ->first();
@@ -38,10 +42,10 @@ class CategoryRepository extends Repository
     /**
      * @param string $slug
      * @param int $id
-     * @return Category|Model|null
+     * @return Supplier|Model|null
      * @throws BindingResolutionException
      */
-    public function getBySlugAndNotId(string $slug, int $id): ? Category
+    public function getBySlugAndNotId(string $slug, int $id): ? Supplier
     {
         return $this->getBySlugBuilder($slug)
             ->where('id', '!=', $id)
@@ -58,4 +62,6 @@ class CategoryRepository extends Repository
         return $this->makeQuery()
             ->where('slug', $slug);
     }
+
+
 }
