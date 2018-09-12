@@ -54,9 +54,7 @@
                             <div class="form-group">
                                 <input class="btn btn-sm btn-success" type="submit" value="{{ __('Save') }}">
                             </div>
-
                         </form>
-
                     </div>
                 </div>
             </div>

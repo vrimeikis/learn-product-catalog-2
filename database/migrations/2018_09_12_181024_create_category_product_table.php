@@ -4,6 +4,9 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
+/**
+ * Class CreateCategoryProductTable
+ */
 class CreateCategoryProductTable extends Migration
 {
     /**
@@ -14,11 +17,8 @@ class CreateCategoryProductTable extends Migration
     public function up(): void
     {
         Schema::create('category_product', function (Blueprint $table) {
-            $table->increments('id');
-            $table->timestamps();
             $table->integer('product_id');
             $table->integer('category_id');
-
             $table->unique(['product_id', 'category_id']);
         });
     }

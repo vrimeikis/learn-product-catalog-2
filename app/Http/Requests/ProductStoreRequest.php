@@ -1,6 +1,6 @@
 <?php
 
-declare(strict_types = 1);
+declare(strict_types=1);
 
 namespace App\Http\Requests;
 
@@ -42,7 +42,7 @@ class ProductStoreRequest extends FormRequest
     /**
      * @return null|string
      */
-    public function getTitle(): ? string
+    public function getTitle(): ?string
     {
         return $this->input('title');
     }
@@ -64,9 +64,9 @@ class ProductStoreRequest extends FormRequest
     }
 
     /**
-     * @return \UploadedFile|null
+     * @return UploadedFile|null
      */
-    public function getCover(): ? UploadedFile
+    public function getCover(): ?UploadedFile
     {
         return $this->file('cover');
     }
