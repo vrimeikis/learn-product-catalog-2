@@ -67,9 +67,7 @@
                                 <td>{{ $manufacturer->updated_at }}</td>
                             </tr>
                         </table>
-
                         <a class='btn btn-sm btn-secondary' href={{ route('admin.manufacturers.index') }}>Back</a>
-
                     </div>
                 </div>
             </div>

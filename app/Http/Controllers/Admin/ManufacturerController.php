@@ -8,7 +8,6 @@ use App\Http\Requests\ManufacturerStoreRequest;
 use App\Repositories\ManufacturerRepository;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Str;
 use Illuminate\View\View;
@@ -102,22 +101,45 @@ class ManufacturerController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return View
+     * @throws BindingResolutionException
      */
-    public function edit($id)
+    public function edit(int $id): View
     {
-        //
+        $manufacturer = $this->manufacturerRepository->find($id);
+
+        return view('admin.manufacturer.edit', compact('manufacturer'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request $request
+     * @param ManufacturerStoreRequest $request
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return RedirectResponse
+     * @throws BindingResolutionException
      */
-    public function update(Request $request, $id)
+    public function update(ManufacturerStoreRequest $request, int $id): RedirectResponse
     {
-        //
+        $data = [
+            'title' => $request->getTitle(),
+            'description' => $request->getDescription(),
+            'address' => $request->getAddress(),
+            'email' => $request->getEmail(),
+            'phone' => $request->getPhone(),
+            'active' => $request->getActive(),
+        ];
+
+        array_set($data, 'slug', empty($request->getSlug()) ? Str::slug($request->getTitle()) : Str::slug($request->getSlug()));
+
+        if ($request->getLogo()) {
+            array_set($data, 'logo', $request->getLogo()->store(self::COVER_DIRECTORY));
+        }
+
+        $this->manufacturerRepository->update($data, $id);
+
+        return redirect()
+            ->route('admin.manufacturers.index')
+            ->with('status', 'Manufacturer updated successfully!');
     }
 }
