@@ -96,6 +96,7 @@
 
                             <div class="form-group">
                                 <input class="btn btn-sm btn-success" type="submit" value="{{ __('Save') }}">
+                                <a class="btn btn-sm btn-danger pull-right" href="{{ route('admin.manufacturers.index') }}" >{{ __('Cancel') }}</a>
                             </div>
                         </form>
                     </div>
