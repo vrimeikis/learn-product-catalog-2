@@ -65,7 +65,7 @@
 
                             <div class="form-group">
                                 <label for="phone">{{ __('Phone') }}:</label>
-                                <input id="phone" class="form-control" type="text" name="phone" placeholder="+370 012 34567"
+                                <input id="phone" class="form-control" type="text" name="phone" placeholder="+37098765432"
                                        value="{{ old('phone') }}">
                                 @if($errors->has('phone'))
                                     <div class="alert-danger">{{ $errors->first('phone') }}</div>

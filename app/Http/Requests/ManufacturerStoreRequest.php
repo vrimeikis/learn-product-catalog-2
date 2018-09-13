@@ -42,7 +42,11 @@ class ManufacturerStoreRequest extends FormRequest
             'description' => 'nullable|string',
             'address' => 'nullable|string',
             'email' => 'nullable|email',
-            'phone' => 'nullable|string',
+            'phone' => [
+                'nullable',
+                'string',
+                'regex:/(^\+370)[0-9]{8}$/'
+                ],
             'logo' => 'nullable',
             'active' => 'nullable',
         ];
