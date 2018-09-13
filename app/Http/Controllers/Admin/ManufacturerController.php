@@ -88,11 +88,14 @@ class ManufacturerController extends Controller
      * Display the specified resource.
      *
      * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @return View
+     * @throws BindingResolutionException
      */
-    public function show($id)
+    public function show(int $id): View
     {
-        //
+        $manufacturer = $this->manufacturerRepository->find($id);
+
+        return view('admin.manufacturer.view', compact('manufacturer'));
     }
 
     /**
