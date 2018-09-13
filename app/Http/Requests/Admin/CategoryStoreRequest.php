@@ -1,15 +1,8 @@
 <?php
 
 declare(strict_types = 1);
-/**
- * Created by PhpStorm.
- * User: evis
- * Date: 18.9.5
- * Time: 20.29
- */
 
 namespace App\Http\Requests\Admin;
-
 
 use App\Repositories\CategoryRepository;
 use Illuminate\Contracts\Validation\Validator;
@@ -17,10 +10,16 @@ use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 
+/**
+ * Class CategoryStoreRequest
+ * @package App\Http\Requests\Admin
+ */
 class CategoryStoreRequest extends FormRequest
 {
-
-    public function authorize()
+    /**
+     * @return bool
+     */
+    public function authorize(): bool
     {
         return true;
     }
@@ -28,7 +27,7 @@ class CategoryStoreRequest extends FormRequest
     /**
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'title' => 'required|min:3|max:191',
@@ -45,7 +44,6 @@ class CategoryStoreRequest extends FormRequest
         return $this->input('title');
     }
 
-
     /**
      * @return Validator
      */
@@ -58,10 +56,8 @@ class CategoryStoreRequest extends FormRequest
                     ->errors()
                     ->add('title', 'Category with this name allready exists!');
             }
-
             return;
         });
-
         return $validator;
     }
 
@@ -79,10 +75,8 @@ class CategoryStoreRequest extends FormRequest
         if (!empty($category)) {
             return true;
         }
-
         return false;
     }
-
 
     /**
      * @return string
@@ -102,6 +96,9 @@ class CategoryStoreRequest extends FormRequest
         return (bool)$this->input('active');
     }
 
+    /**
+     * @return UploadedFile|null
+     */
     public function getCover(): ? UploadedFile
     {
         return $this->file('cover');

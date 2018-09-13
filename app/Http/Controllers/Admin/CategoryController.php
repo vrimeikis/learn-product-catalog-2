@@ -11,9 +11,12 @@ use App\Repositories\CategoryRepository;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
+/**
+ * Class CategoryController
+ * @package App\Http\Controllers\Admin
+ */
 class CategoryController extends Controller
 {
-
     /**
      * @var CategoryRepository
      */
@@ -28,7 +31,6 @@ class CategoryController extends Controller
         $this->categoryRepository = $categoryRepository;
     }
 
-
     /**
      * Display a listing of the resource.
      *
@@ -41,7 +43,6 @@ class CategoryController extends Controller
 
         return view('admin.category.list', compact('categories'));
     }
-
 
     /**
      * @return View
@@ -70,6 +71,7 @@ class CategoryController extends Controller
         if ($request->getCover()) {
             $data['cover'] = $request->getCover()->store('categories');
         }
+
         $this->categoryRepository->create($data);
 
         return redirect()
@@ -99,8 +101,6 @@ class CategoryController extends Controller
     {
         $category = $this->categoryRepository->find($categoryId);
 
-        //dd($category);
-
         return view('admin.category.edit', compact('category'));
     }
 
@@ -126,15 +126,6 @@ class CategoryController extends Controller
         }
 
         $this->categoryRepository->update($data, $categoryId);
-
-
-//        $this->categoryRepository->update([
-//            'title' => $request->getTitle(),
-//            'slug' => $request->getSlug(),
-//            'active' => $request->getActive(),
-//        ], $categoryId);
-
-
 
         return redirect()
             ->route('admin.categories.index')
