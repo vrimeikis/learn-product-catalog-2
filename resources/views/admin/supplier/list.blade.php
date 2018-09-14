@@ -39,7 +39,13 @@
                                     </td>
                                     <td>{{ $supplier->title }}</td>
                                     <td>{{ $supplier->slug }}</td>
-                                    <td>{{ $supplier->active }}</td>
+                                    <td>
+                                        @if($supplier->active >0)
+                                            <p style="color: green;">Active</p>
+                                        @else
+                                            <p style="color: red;">Inactive</p>
+                                        @endif
+                                    </td>
 
                                     <td>
                                         <a class="btn btn-sm btn-success"

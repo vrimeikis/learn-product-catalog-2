@@ -79,23 +79,29 @@ class SupplierController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $supplierId
+     * @return View
+     * @throws BindingResolutionException
      */
-    public function show($id)
+    public function show(int $supplierId): View
     {
-        //
+        $supplier = $this->supplierRepository->find($supplierId);
+
+        return view('admin.supplier.show', compact('supplier'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param int $supplierId
+     * @return View
+     * @throws BindingResolutionException
      */
-    public function edit($id)
+    public function edit(int $supplierId): View
     {
-        //
+        $supplier = $this->supplierRepository->find($supplierId);
+
+        return view('admin.supplier.edit', compact('supplier'));
     }
 
     /**
