@@ -27,5 +27,7 @@ Route::group(['prefix' => 'admin', 'as' => 'admin.', 'middleware' => 'auth'], fu
 
     Route::resource('product', 'Admin\\ProductController')->except(['show', 'destroy']);
     Route::resource('categories', 'Admin\\CategoryController')->except(['show', 'destroy']);
+    Route::resource('features', 'Admin\\FeatureController')->except(['destroy']);
+    Route::resource('featuresItems', 'Admin\\FeatureItemController')->except(['destroy']);
 });
 
