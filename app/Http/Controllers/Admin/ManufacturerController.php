@@ -4,12 +4,11 @@ declare (strict_types=1);
 
 namespace App\Http\Controllers\Admin;
 
-use App\Http\Requests\ManufacturerStoreRequest;
+use App\Http\Requests\ManufacturerRequest;
 use App\Repositories\ManufacturerRepository;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\RedirectResponse;
 use App\Http\Controllers\Controller;
-use Illuminate\Support\Str;
 use Illuminate\View\View;
 
 /**
@@ -18,6 +17,9 @@ use Illuminate\View\View;
  */
 class ManufacturerController extends Controller
 {
+    /**
+     *
+     */
     const COVER_DIRECTORY = 'manufactures';
 
     /** @var ManufacturerRepository */
@@ -58,23 +60,14 @@ class ManufacturerController extends Controller
     /**
      * Store a newly created resource in storage.
      *
-     * @param ManufacturerStoreRequest $request
+     * @param ManufacturerRequest $request
      * @return RedirectResponse
      * @throws BindingResolutionException
      */
-    public function store(ManufacturerStoreRequest $request): RedirectResponse
+    public function store(ManufacturerRequest $request): RedirectResponse
     {
-        $data = [
-            'title' => $request->getTitle(),
-            'description' => $request->getDescription(),
-            'address' => $request->getAddress(),
-            'email' => $request->getEmail(),
-            'phone' => $request->getPhone(),
-            'logo' => $request->getLogo() ? $request->getLogo()->store(self::COVER_DIRECTORY) : null,
-            'active' => $request->getActive(),
-        ];
-
-        array_set($data, 'slug', empty($request->getSlug()) ? Str::slug($request->getTitle()) : Str::slug($request->getSlug()));
+        $data = $request->getData();
+        array_set($data, 'logo', $request->getLogo() ? $request->getLogo()->store(self::COVER_DIRECTORY) : null);
 
         $this->manufacturerRepository->create($data);
 
@@ -114,23 +107,14 @@ class ManufacturerController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param ManufacturerStoreRequest $request
+     * @param ManufacturerRequest $request
      * @param  int $id
      * @return RedirectResponse
      * @throws BindingResolutionException
      */
-    public function update(ManufacturerStoreRequest $request, int $id): RedirectResponse
+    public function update(ManufacturerRequest $request, int $id): RedirectResponse
     {
-        $data = [
-            'title' => $request->getTitle(),
-            'description' => $request->getDescription(),
-            'address' => $request->getAddress(),
-            'email' => $request->getEmail(),
-            'phone' => $request->getPhone(),
-            'active' => $request->getActive(),
-        ];
-
-        array_set($data, 'slug', empty($request->getSlug()) ? Str::slug($request->getTitle()) : Str::slug($request->getSlug()));
+        $data = $request->getData();
 
         if ($request->getLogo()) {
             array_set($data, 'logo', $request->getLogo()->store(self::COVER_DIRECTORY));
