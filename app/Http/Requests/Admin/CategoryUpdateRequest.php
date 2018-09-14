@@ -1,32 +1,38 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: evis
- * Date: 18.9.6
- * Time: 23.30
- */
 
 declare(strict_types = 1);
 
 namespace App\Http\Requests\Admin;
 
-
 use App\Repositories\CategoryRepository;
 use Illuminate\Contracts\Validation\Validator;
 
+/**
+ * Class CategoryUpdateRequest
+ * @package App\Http\Requests\Admin
+ */
 class CategoryUpdateRequest extends CategoryStoreRequest
 {
 
+    /**
+     * @return bool
+     */
     public function authorize(): bool
     {
         return true;
     }
 
+    /**
+     * @return array
+     */
     public function rules(): array
     {
         return parent::rules();
     }
 
+    /**
+     * @return Validator
+     */
     protected function getValidatorInstance(): Validator
     {
         $validator = parent::getValidatorInstance();
@@ -35,13 +41,15 @@ class CategoryUpdateRequest extends CategoryStoreRequest
                 $validator->errors()
                     ->add('slug', 'This slug already exists');
             }
-
             return;
         });
-
         return $validator;
     }
 
+    /**
+     * @return bool
+     * @throws \Illuminate\Contracts\Container\BindingResolutionException
+     */
     private function slugExists(): bool
     {
         /** @var CategoryRepository $categoryRepository */
@@ -55,7 +63,6 @@ class CategoryUpdateRequest extends CategoryStoreRequest
         if (!empty($category)) {
             return true;
         }
-
         return false;
     }
 

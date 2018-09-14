@@ -24,15 +24,4 @@ class ProductRepository extends Repository
     {
         return Product::class;
     }
-
-    /**
-     * @param string $slug
-     * @return Builder
-     * @throws \Exception
-     */
-    private function getBySlugBuilder(string $slug): Builder
-    {
-        return $this->makeQuery()
-            ->where('slug', $slug);
-    }
 }

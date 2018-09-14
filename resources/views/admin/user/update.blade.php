@@ -57,7 +57,8 @@
 
                             <div class="form-group">
                                 <label for="password_confirmation">{{ __('Password confirmation') }}:</label>
-                                <input id="password_confirmation" class="form-control" type="password" name="password_confirmation"
+                                <input id="password_confirmation" class="form-control" type="password"
+                                       name="password_confirmation"
                                        value="{{ old('password_confirmation') }}">
                                 @if($errors->has('password_confirmation'))
                                     <div class="alert-danger">{{ $errors->first('password_confirmation') }}</div>
@@ -65,7 +66,7 @@
                             </div>
 
                             <div class="form-group">
-                                <input class="btn btn-success" type="submit" value="{{ __('Save') }}">
+                                <input class="btn btn-sm btn-success" type="submit" value="{{ __('Save') }}">
                             </div>
                         </form>
                     </div>
@@ -73,5 +74,5 @@
             </div>
         </div>
     </div>
-    </div>
+
 @endsection

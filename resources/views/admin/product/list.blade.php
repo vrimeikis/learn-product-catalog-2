@@ -63,7 +63,7 @@
                                         @endif
                                     </td>
                                     <td>
-                                        <a href="{{ route('admin.product.edit', [$product->id]) }}">Edit</a>
+                                        <a class="btn btn-sm btn-success" href="{{ route('admin.product.edit', [$product->id]) }}">Edit</a>
                                     </td>
                                 </tr>
                             @endforeach

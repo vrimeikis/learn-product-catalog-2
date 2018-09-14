@@ -22,7 +22,6 @@
                             <tr>
                                 <th>ID</th>
                                 <th>Created at</th>
-                                <th>Updated at</th>
                                 <th>Title</th>
                                 <th>Slug</th>
                                 <th>Active</th>
@@ -34,7 +33,6 @@
                                 <tr>
                                     <td>{{ $category->id}}</td>
                                     <td>{{ $category->created_at }}</td>
-                                    <td>{{ $category->updated_at }}</td>
                                     <td>{{ $category->title }}</td>
                                     <td>{{ $category->slug }}</td>
                                     <td>{{ $category->active }}</td>
