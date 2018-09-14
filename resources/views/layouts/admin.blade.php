@@ -54,6 +54,12 @@
                             <li class="nav-item">
                                 <a class="nav-link" href="{{ route('admin.product.index') }}">{{ __('Product') }}</a>
                             </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.features.index') }}">{{ __('Features') }}</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.featuresItems.index') }}">{{ __('Features items') }}</a>
+                            </li>
                             <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link" href="{{ route('admin.users.index') }}" role="button" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ __('Users') }} <span class="caret"></span>
