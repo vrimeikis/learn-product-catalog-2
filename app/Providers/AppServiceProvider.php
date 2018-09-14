@@ -4,6 +4,7 @@ declare(strict_types = 1);
 
 namespace App\Providers;
 
+use App\Repositories\ManufacturerRepository;
 use App\Repositories\UserMetasRepository;
 use App\Repositories\UserRepository;
 use App\Repositories\ProductRepository;
@@ -45,7 +46,7 @@ class AppServiceProvider extends ServiceProvider
     {
         $this->app->singleton(UserRepository::class);
         $this->app->singleton(UserMetasRepository::class);
-
+        $this->app->singleton(ManufacturerRepository::class);
         $this->app->singleton(ProductRepository::class);
         $this->app->singleton(CategoryRepository::class);
     }
