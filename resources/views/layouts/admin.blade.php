@@ -55,6 +55,9 @@
                                 <a class="nav-link" href="{{ route('admin.product.index') }}">{{ __('Product') }}</a>
                             </li>
                             <li class="nav-item">
+                                <a class="nav-link" href="{{ route('admin.suppliers.index') }}">{{ __('Suppliers') }}</a>
+                            </li>
+                            <li class="nav-item">
                                 <a class="nav-link" href="{{ route('admin.users.index') }}">{{ __('Users') }}</a>
                             </li>
                             <li class="nav-item">

@@ -7,9 +7,8 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        Products List
-                        <a class="btn btn-sm btn-primary" href="{{ route('admin.product.create') }}">{{ __('New') }}</a>
-
+                        Suppliers list
+                        <a class="btn btn-sm btn-primary" href="{{ route('admin.suppliers.create') }}">{{ __('New') }}</a>
                     </div>
 
                     <div class="card-body">
@@ -19,59 +18,49 @@
                             </div>
                         @endif
 
-                        @if (session('error'))
-
-                            <div class="alert alert-danger" role="alert">
-                                {{ session('error') }}
-                            </div>
-
-                        @endif
-
                         <table class="table">
                             <tr>
                                 <th>ID</th>
+                                <th>Logo</th>
                                 <th>Title</th>
-                                <th>Cover</th>
                                 <th>Slug</th>
-                                <th>Price</th>
-                                <th>Available</th>
+                                <th>Active</th>
                                 <th>Actions</th>
                             </tr>
 
-                            @foreach($products as $product)
+                            @foreach($suppliers as $supplier)
                                 <tr>
-                                    <td>{{ $product->id }}</td>
-                                    <td>{{ $product->title }}</td>
+                                    <td>{{ $supplier->id}}</td>
                                     <td>
-                                        @if($product->cover)
-                                            <img width="100" src="{{ Storage::url($product->cover) }}">
 
+                                        @if ($supplier->logo)
+                                            <img width="100" src="{{ Storage::url($supplier->logo) }}">
                                         @endif
-
                                     </td>
-
-                                    <td>{{ $product->slug }}</td>
-
+                                    <td>{{ $supplier->title }}</td>
+                                    <td>{{ $supplier->slug }}</td>
                                     <td>
-                                        {{ $product->price }}
-                                    </td>
-                                    <td>
-                                        @if($product->active >0)
+                                        @if($supplier->active == 'yes')
                                             <p style="color: green;">Active</p>
-                                            @else
+                                        @else
                                             <p style="color: red;">Inactive</p>
                                         @endif
                                     </td>
+
                                     <td>
-                                        <a class="btn btn-sm btn-success" href="{{ route('admin.product.edit', [$product->id]) }}">Edit</a>
+                                        <a class="btn btn-sm btn-success"
+                                           href="{{ route('admin.suppliers.edit', [$supplier->id]) }}">{{ __('Edit') }}
+                                        </a>
+
+                                        <a class="btn btn-sm btn-info"
+                                           href="{{ route('admin.suppliers.show', [$supplier->id]) }}">{{ __('More info') }}
+                                        </a>
                                     </td>
                                 </tr>
                             @endforeach
 
                         </table>
-
-                        {{ $products->links() }}
-
+                        {{ $suppliers->links() }}
                     </div>
                 </div>
             </div>

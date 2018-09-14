@@ -5,10 +5,10 @@ namespace App;
 use Illuminate\Database\Eloquent\Model;
 
 /**
- * Class Category
+ * Class Supplier
  * @package App
  */
-class Category extends Model
+class Supplier extends Model
 {
     /**
      * @var array
@@ -16,7 +16,11 @@ class Category extends Model
     protected $fillable = [
         'title',
         'slug',
-        'active',
-        'cover',
+        'description',
+        'address',
+        'phone',
+        'email',
+        'logo',
+        'active'
     ];
 }

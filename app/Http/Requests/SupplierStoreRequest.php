@@ -1,26 +1,20 @@
 <?php
 
-declare(strict_types=1);
-
 namespace App\Http\Requests;
 
-use App\Repositories\ProductRepository;
+use App\Repositories\SupplierRepository;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Http\UploadedFile;
 use Illuminate\Support\Str;
 
-/**
- * Class ProductStoreRequest
- * @package App\Http\Requests
- */
-class ProductStoreRequest extends FormRequest
+class SupplierStoreRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize(): bool
+    public function authorize()
     {
         return true;
     }
@@ -34,41 +28,61 @@ class ProductStoreRequest extends FormRequest
     {
         return [
             'title' => 'required',
-            'cover' => 'nullable|image',
-            'price' => 'required',
+            'description' => 'nullable|required',
+            'address' => 'nullable|required',
+            'phone' => 'nullable|required',
+            'email' => 'nullable|required',
+            'logo' => 'nullable|image',
+            'active' => 'required'
         ];
     }
 
     /**
      * @return null|string
      */
-    public function getTitle(): ?string
+    public function getTitle(): ? string
     {
         return $this->input('title');
     }
 
     /**
-     * @return array
+     * @return string
      */
-    public function getCategoriesIds(): array
+    public function getDescription(): string
     {
-        return $this->input('category', []);
+        return $this->input('description');
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getPrice(): int
+    public function getAddress(): string
     {
-        return (int)$this->input('price');
+        return $this->input('address');
+    }
+
+    /**
+     * @return string
+     */
+    public function getEmail(): string
+    {
+        return $this->input('email');
+    }
+
+    /**
+     * @return string
+     */
+    public function getPhone(): string
+    {
+        return $this->input('phone');
     }
 
     /**
      * @return UploadedFile|null
      */
-    public function getCover(): ?UploadedFile
+    public function getLogo(): ? UploadedFile
     {
-        return $this->file('cover');
+        return $this->file('logo');
     }
 
     /**
@@ -80,20 +94,12 @@ class ProductStoreRequest extends FormRequest
     }
 
     /**
-     * @return string
-     */
-    public function getContext(): ?string
-    {
-        return $this->input('context');
-    }
-
-    /**
      * @return bool
      */
-    public function getActive(): bool
+    public function getActive(): string
     {
 
-        return (bool)$this->input('active');
+        return $this->input('active');
     }
 
     /**
@@ -102,9 +108,9 @@ class ProductStoreRequest extends FormRequest
      */
     protected function slugExists(): bool
     {
-        /** @var ProductRepository $productRepository */
-        $productRepository = app(ProductRepository::class);
-        $slug = $productRepository->getBySlug($this->getSlug());
+        /** @var SupplierRepository $supplierRepository */
+        $supplierRepository = app(SupplierRepository::class);
+        $slug = $supplierRepository->getBySlug($this->getSlug());
 
         return !empty($slug);
     }

@@ -1,24 +1,18 @@
 <?php
 
-declare(strict_types = 1);
-
 namespace App\Http\Requests;
 
 use Illuminate\Support\Str;
 use Illuminate\Validation\Rule;
 
-/**
- * Class ProductUpdateRequest
- * @package App\Http\Requests
- */
-class ProductUpdateRequest extends ProductStoreRequest
+class SupplierUpdateRequest extends SupplierStoreRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      *
      * @return bool
      */
-    public function authorize(): bool
+    public function authorize()
     {
         return true;
     }
@@ -30,12 +24,13 @@ class ProductUpdateRequest extends ProductStoreRequest
      */
     public function rules(): array
     {
+
         return array_merge(
             parent::rules(),
             [
                 'slug' =>[
                     'nullable',
-                    Rule::unique('products')->ignore($this->route()->parameter('product'))
+                    Rule::unique('suppliers')->ignore($this->route()->parameter('supplier'))
                 ]
             ]
         );
