@@ -36,6 +36,7 @@
                             <div class="form-group">
                                 <label for="logo">{{ __('Logo') }}</label>
                                 <input id="logo" class="form-control" type="file" name="logo" accept=".jpg, .jpeg, .png">
+
                                 @if($errors->has('logo'))
                                     <div class="alert-danger">{{ $errors->first('logo') }}</div>
                                 @endif
@@ -81,8 +82,10 @@
                                 <label for="active">{{ __('Active') }}:</label>
 
                                 <select id="active" name="active" class="form-control">
-                                    <option value="1">Yes</option>
-                                    <option value="0">No</option>
+
+                                        <option value="yes" {{ (old('active', $supplier->active) == 'yes' ? 'selected' : '') }}>Yes</option>
+                                        <option value="no" {{ (old('active', $supplier->active) == 'no' ? 'selected' : '') }}>No</option>
+
                                 </select>
 
                                 @if($errors->has('active'))

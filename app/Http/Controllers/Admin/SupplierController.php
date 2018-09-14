@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Requests\SupplierStoreRequest;
+use App\Http\Requests\SupplierUpdateRequest;
 use Illuminate\Contracts\Container\BindingResolutionException;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -12,6 +13,9 @@ use App\Repositories\SupplierRepository;
 
 class SupplierController extends Controller
 {
+    const LOGO_DIRECTORY = 'suppliers';
+
+
     protected $supplierRepository;
 
     /**
@@ -67,7 +71,7 @@ class SupplierController extends Controller
 
 
         if ($request->getLogo()) {
-            $data['logo'] = $request->getLogo()->store('logo');
+            $data['logo'] = $request->getLogo()->store(self::LOGO_DIRECTORY);
         }
         $this->supplierRepository->create($data);
 
@@ -107,13 +111,35 @@ class SupplierController extends Controller
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param SupplierUpdateRequest $request
+     * @param $supplierId
+     * @return RedirectResponse
+     * @throws BindingResolutionException
      */
-    public function update(Request $request, $id)
+    public function update(SupplierUpdateRequest $request, $supplierId): RedirectResponse
     {
-        //
+
+        $data = [
+            'title' => $request->getTitle(),
+            'slug' => $request->getSlug(),
+            'description' =>$request->getDescription(),
+            'address' => $request->getAddress(),
+            'phone' => $request->getPhone(),
+            'email' => $request->getEmail(),
+            'active' => $request->getActive()
+        ];
+
+
+        if ($request->getLogo()) {
+            $data['logo'] = $request->getLogo()->store(self::LOGO_DIRECTORY);
+        }
+
+
+        $this->supplierRepository->update($data, $supplierId);
+
+        return redirect()
+            ->route('admin.suppliers.index')
+            ->with('status', 'Supplier updated successfully!');
     }
 
     /**

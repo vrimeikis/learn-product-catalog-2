@@ -40,7 +40,7 @@
                                     <td>{{ $supplier->title }}</td>
                                     <td>{{ $supplier->slug }}</td>
                                     <td>
-                                        @if($supplier->active >0)
+                                        @if($supplier->active == 'yes')
                                             <p style="color: green;">Active</p>
                                         @else
                                             <p style="color: red;">Inactive</p>
@@ -52,7 +52,7 @@
                                            href="{{ route('admin.suppliers.edit', [$supplier->id]) }}">{{ __('Edit') }}
                                         </a>
 
-                                        <a class="btn btn-sm btn-success"
+                                        <a class="btn btn-sm btn-info"
                                            href="{{ route('admin.suppliers.show', [$supplier->id]) }}">{{ __('More info') }}
                                         </a>
                                     </td>

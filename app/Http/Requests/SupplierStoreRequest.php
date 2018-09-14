@@ -96,10 +96,10 @@ class SupplierStoreRequest extends FormRequest
     /**
      * @return bool
      */
-    public function getActive(): bool
+    public function getActive(): string
     {
 
-        return (bool)$this->input('active');
+        return $this->input('active');
     }
 
     /**
